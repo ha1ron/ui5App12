@@ -1,0 +1,52 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="Z00_APP12_SRV" xml:lang="ru" sap:schema-version="1">
+            <EntityType Name="ZRGP_120N" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Calmonth"/>
+                    <PropertyRef Name="Calyear"/>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="kodgrgr"/>
+                    <PropertyRef Name="stbeg"/>
+                    <PropertyRef Name="stend"/>
+                    <PropertyRef Name="zidModel"/>
+                </Key>
+                <Property Name="Calmonth" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="КалендГод/Месяц" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Calyear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Календарный год" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Версия" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="kodgrgr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Код группы груза" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="stbeg" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ЕСР код станции нача" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="stend" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ЕСР код станции конц" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zidModel" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="ИД модели" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="miesumF" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="сумма расходов fltp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zZr" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Зависящие расходы" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zgrpRI" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Расходы. Инфраструкт" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zgrpRL" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Расходы. Локомотивна" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zgrpRV" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Расходы.Вагон.сост" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zZr1" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Зависящие расходы 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zZr2" Type="Edm.Double" Nullable="false" sap:unicode="false" sap:label="Зависящие расходы 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="zinst" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="ZINST" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="stbeg" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="st_spr"/>
+                </Key>
+                <Property Name="st_spr" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ЕСР код станции нача" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Txtsh" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Краткое описание" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Txtlg" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Подробное описание" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="Z00_APP12_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZRGP_120NSet" EntityType="Z00_APP12_SRV.ZRGP_120N" sap:label="Приложение 12" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="stbegSet" EntityType="Z00_APP12_SRV.stbeg" sap:label="Справочник станций" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/Z00_APP12_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/Z00_APP12_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
