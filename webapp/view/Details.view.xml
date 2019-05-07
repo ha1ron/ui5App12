@@ -1,11 +1,9 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="APP12FirstLook.controller.Details">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="APP12FirstLook.controller.Details">
 	<App>
 		<pages>
-			<Page title="Детали" showNavButton="true" navButtonPress="toSelection">
+			<Page title="Хранилище ZRGP_120" showNavButton="true" navButtonPress="toSelection">
 				<content>
-					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Таблица" footerText="Футер" growing="true"
-						growingThreshold="1000" growingTriggerText="Дальше">
+					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Таблица" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше">
 						<columns>
 							<Column>
 								<Text text="Период"/>
