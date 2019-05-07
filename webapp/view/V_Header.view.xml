@@ -3,8 +3,8 @@
 		<pages>
 			<Page title="Заголовок">
 				<content>
-					<Input width="100%" id="inputSel" placeholder="станция начала" showSuggestion="true" name="stBeg" suggest="suggestSet" selectedKey="{/#ZRGP_120N/stbeg/@sap:label}" valueLiveUpdate="true" suggestionRowValidator="{/#ZRGP_120N/stbeg/@sap:label}"/>
-					<Input width="100%" id="inputEndStation" placeholder="станция конца" showSuggestion="true" />
+					<Input width="100%" id="inputSel" placeholder="станция начала" showSuggestion="true" name="stBeg" suggest="suggestSet" selectedKey="{/#ZRGP_120N/stbeg/@sap:label}" valueLiveUpdate="true" suggestionRowValidator="{/#ZRGP_120N/stbeg/@sap:label}" suggestionItemSelected="begSuggest"/>
+					<Input width="100%" id="inputEndStation" placeholder="станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"/>
 					<Input width="100%" id="codeCargo" placeholder="Код груза" showSuggestion="true"/>
 					<Button text="Запуск" width="100px" id="__button0" press="goToDetails"/>
 				</content>
