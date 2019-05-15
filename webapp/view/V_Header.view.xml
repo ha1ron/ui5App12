@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="APP12FirstLook.controller.V_Header">
 	<App>
 		<pages>
-			<Page title="Заголовок">
+			<Page title="Приложение 12">
 				<content>
 					<Input width="100%" id="inputSel" placeholder="станция начала" showSuggestion="true" name="stBeg" suggest="suggestSet" selectedKey="{/#ZRGP_120N/stbeg/@sap:label}" valueLiveUpdate="true" suggestionRowValidator="{/#ZRGP_120N/stbeg/@sap:label}" suggestionItemSelected="begSuggest"/>
 					<Input width="100%" id="inputEndStation" placeholder="станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"/>

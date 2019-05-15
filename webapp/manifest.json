@@ -39,7 +39,10 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": ["sap_hcb", "sap_belize"]
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
 	},
 	"sap.ui5": {
 		"rootView": {
@@ -81,12 +84,15 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}, {
-				"uri": "css/smalStyle.css",
-				"id": ""
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "css/smalStyle.css",
+					"id": ""
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -112,19 +118,30 @@
 					"viewLevel": 2
 				}
 			},
-			"routes": [{
-				"name": "TargetHeader",
-				"pattern": "",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["TargetHeader"]
-			}, {
-				"name": "TargetDetails",
-				"pattern": "ZRGP_120NSet/{inputValue}/{endStation}/{code}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["TargetDetails"]
-			}]
+			"routes": [
+				{
+					"name": "TargetHeader",
+					"pattern": "",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"TargetHeader"
+					]
+				},
+				{
+					"name": "TargetDetails",
+					"pattern": "ZRGP_120NSet/{inputValue}/{endStation}/{code}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"TargetDetails"
+					]
+				}
+			]
 		}
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/sap/z_app12/webapp",
+		"_version": "1.1.0"
 	}
 }

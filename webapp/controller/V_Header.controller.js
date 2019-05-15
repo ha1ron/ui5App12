@@ -35,6 +35,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 				// A case-insensitive 'string contains' style filter
 				return oItem.getText().match(new RegExp(sTerm, "i"));
 			});
+			
+			inputEnd.setFilterFunction(function(sTerm, oItem) {
+				return oItem.getText().match(new RegExp(sTerm, "i"));
+			});
 
 			var myModel = this.getOwnerComponent().getModel();
 			myModel.setSizeLimit(10000);
