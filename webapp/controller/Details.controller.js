@@ -11,6 +11,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// Validate/Match the Router Details sent from source using oRouter.navTo("Router_Detail", {SelectedItem: selectPO});
 			oRouter.getRoute("TargetDetails").attachMatched(this._onRouteFound, this);
+			
 		
 			var myModel = this.getOwnerComponent().getModel();
 			myModel.setSizeLimit(999);
