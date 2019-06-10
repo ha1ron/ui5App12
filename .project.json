@@ -45,7 +45,7 @@
     "blockPushLevel": "Error"
   },
   "build": {
-    "buildRequired": false,
+    "buildRequired": true,
     "sourceFolder": "webapp",
     "targetFolder": "dist",
     "excludedFolders": [],
@@ -53,8 +53,8 @@
     "lastBuildDateTime": "Tue, 28 May 2019 06:24:17 GMT"
   },
   "mockpreview": {
-    "mockUri": "/sap/opu/odata/sap/Z00_APP12_SRV",
-    "metadataFilePath": "",
+    "mockUri": "/sap/opu/odata/sap/Z00_APP12_SRV/",
+    "metadataFilePath": "localService/metadata.xml",
     "loadJSONFiles": false,
     "loadCustomRequests": false,
     "mockRequestsFilePath": ""

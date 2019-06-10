@@ -1,11 +1,16 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="APP12FirstLook.controller.Details">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="APP12FirstLook.controller.Details">
 	<App>
 		<pages>
 			<Page title="Хранилище ZRGP_120" showNavButton="true" navButtonPress="toSelection">
 				<content>
-					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Таблица" footerText="ОЦРВ" growing="true"
-						growingThreshold="1000" growingTriggerText="Дальше">
+					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Таблица" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше">
+						<headerToolbar>
+							<Toolbar>
+								<Title level="H2" text="Таблица"/>
+								<ToolbarSpacer/>
+								<Button press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>
+							</Toolbar>
+						</headerToolbar>
 						<columns>
 							<Column>
 								<Text text="Период"/>
@@ -37,7 +42,8 @@
 						</columns>
 						<items>
 							<ColumnListItem press="testSelect">
-								<Text text="{Calmonth}"/>
+								<cells>
+								<ObjectIdentifier text="{Calmonth}"/>
 								<Text text="{kodgrgr}"/>
 								<Text text="{kodgr_text}"/>
 								<Text text="{stbeg}"/>
@@ -46,8 +52,12 @@
 								<Text text="{stend_text}"/>
 								<Text text="{miesumF}"/>
 								<Text text="{zZr}"/>
+								</cells>
 							</ColumnListItem>
 						</items>
+					<customData>
+					    <core:CustomData key="w5g.dt.editable" value="true" id="__data3"/>
+					</customData>
 					</Table>
 				</content>
 			</Page>

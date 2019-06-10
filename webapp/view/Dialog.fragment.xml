@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<ViewSettingsDialog confirm="onConfirm">
+		<sortItems>
+			<ViewSettingsItem selected="true" key="Calmonth" text="Период"/>
+			<ViewSettingsItem key="kodgrgr" text="Код груза"/>
+			<ViewSettingsItem key="stbeg" text="Станция начала"/>
+			<ViewSettingsItem key="stend" text="Станция конца"/>
+			<ViewSettingsItem key="miesumF" text="Сумма расходов"/>
+			<ViewSettingsItem key="zZr" text="zZr"/>
+		</sortItems>
+		
+		<filterItems>
+			<ViewSettingsCustomItem id="kodgrgr" text="Код груза" key="cargoFilter">
+				<customControl>
+					<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" />
+				</customControl>
+			</ViewSettingsCustomItem>
+			
+			<ViewSettingsCustomItem id="stend"  text="Станция конца" key="stend" >
+				<customControl>
+					<Input width="100%" id="stEndFilter" placeholder="Станция конца"/>
+				</customControl>
+			</ViewSettingsCustomItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
