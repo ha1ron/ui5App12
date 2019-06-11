@@ -28,18 +28,22 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 			inputCode.bindAggregation("suggestionItems", {
 				path: "/codeCargoSet",
 				template: new sap.ui.core.Item({
-					text: "{kodgrgr}"
+					key: "{kodgrgr}",
+					text: "{kodgrgr} - {cargo_text}"
 				})
 			});
 			input.setFilterFunction(function(sTerm, oItem) {
 				// A case-insensitive 'string contains' style filter
 				return oItem.getText().match(new RegExp(sTerm, "i"));
 			});
-			
 			inputEnd.setFilterFunction(function(sTerm, oItem) {
 				return oItem.getText().match(new RegExp(sTerm, "i"));
 			});
-
+			
+			inputCode.setFilterFunction(function(sTerm, oItem) {
+				return oItem.getText().match(new RegExp(sTerm, "i"));
+			});
+			
 			var myModel = this.getOwnerComponent().getModel();
 			myModel.setSizeLimit(10000);
 		},
@@ -72,11 +76,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 		 */
 		suggestSet: function(oEvent) {
 			/*	input.addSuggestionItem(
-										new sap.ui.core.Item({
-											key: '1',
-											text: '123'
-										})
-									);*/
+													new sap.ui.core.Item({
+														key: '1',
+														text: '123'
+													})
+												);*/
 		},
 		/**
 		 *@memberOf APP12FirstLook.controller.V_Header
@@ -84,7 +88,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 		begSuggest: function(oEvent) {
 			var item = oEvent.getParameter("selectedItem");
 			var key = item.getKey();
-
 			var input = this.getView().byId("inputSel");
 			input.setValue(key);
 		},
@@ -94,8 +97,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 		endSuggest: function(oEvent) {
 			var item = oEvent.getParameter("selectedItem");
 			var key = item.getKey();
-
 			var input = this.getView().byId("inputEndStation");
+			input.setValue(key);
+		},
+		/**
+		 *@memberOf APP12FirstLook.controller.V_Header
+		 */
+		cargoSauggest: function(oEvent) {
+			var item = oEvent.getParameter("selectedItem");
+			var key = item.getKey();
+			var input = this.getView().byId("codeCargo");
 			input.setValue(key);
 		}
 	});
