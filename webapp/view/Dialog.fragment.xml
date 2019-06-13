@@ -8,17 +8,25 @@
 			<ViewSettingsItem key="miesumF" text="Сумма расходов"/>
 			<ViewSettingsItem key="zZr" text="zZr"/>
 		</sortItems>
-		
 		<filterItems>
-			<ViewSettingsCustomItem id="kodgrgr" text="Код груза" key="cargoFilter">
+			<ViewSettingsCustomItem id="Calmonth" text="Период" key="Calmonth">
 				<customControl>
-					<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" />
+					<Input width="100%" id="monFilter" placeholder="Код груза"/>
 				</customControl>
 			</ViewSettingsCustomItem>
-			
-			<ViewSettingsCustomItem id="stend"  text="Станция конца" key="stend" >
+			<ViewSettingsCustomItem id="kodgrgr" text="Код груза" key="kodgrgr">
 				<customControl>
-					<Input width="100%" id="stEndFilter" placeholder="Станция конца"/>
+					<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" showSuggestion="true"  suggestionItemSelected="cargoSuggest"  />
+				</customControl>
+			</ViewSettingsCustomItem>
+			<ViewSettingsCustomItem id="stbeg" text="Станция начала" key="stbeg">
+				<customControl>
+					<Input width="100%" id="stBegFilter" placeholder="Станция начала" showSuggestion="true" suggestionItemSelected="begSuggest"/>
+				</customControl>
+			</ViewSettingsCustomItem>
+			<ViewSettingsCustomItem id="stend" text="Станция конца" key="stend">
+				<customControl>
+					<Input width="100%" id="stEndFilter" placeholder="Станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"/>
 				</customControl>
 			</ViewSettingsCustomItem>
 		</filterItems>

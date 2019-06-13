@@ -1,19 +1,20 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="APP12FirstLook.controller.Details">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="APP12FirstLook.controller.Details">
 	<App>
 		<pages>
 			<Page title="Хранилище ZRGP_120" showNavButton="true" navButtonPress="toSelection">
 				<content>
-					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Заголовок" footerText="ОЦРВ" growing="true"
-						growingThreshold="1000" growingTriggerText="Дальше">
+					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Заголовок" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше" updateFinished="onUpdateFinish" updateStarted="">
 						<headerToolbar>
 							<Toolbar>
 								<content>
 									<Title level="H2" text="Таблица"/>
-									<ToolbarSpacer></ToolbarSpacer>
+									<ToolbarSpacer/>
+									<Text text="Число записей:"/>
+									<Text text="" id="recordCount"/>
+									<ToolbarSpacer/>
 									<Button press="onExcel" icon="sap-icon://excel-attachment" tooltip="EXCEL"/>
-									<Button text="Запуск" press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>
-									<Button text="Запуск" press="onTableSettings" tooltip="Settings"/>
+									<Button press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>
+									
 								</content>
 							</Toolbar>
 						</headerToolbar>
