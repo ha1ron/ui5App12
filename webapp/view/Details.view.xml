@@ -3,7 +3,7 @@
 		<pages>
 			<Page title="Хранилище ZRGP_120" showNavButton="true" navButtonPress="toSelection">
 				<content>
-					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Заголовок" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше" updateFinished="onUpdateFinish" updateStarted="">
+					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Заголовок" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше" updateFinished="onUpdateFinish">
 						<headerToolbar>
 							<Toolbar>
 								<content>
@@ -50,7 +50,7 @@
 						<items>
 							<ColumnListItem press="testSelect">
 								<cells>
-									<ObjectIdentifier text="{Calmonth}"/>
+									<ObjectIdentifier text="{calmonth}"/>
 									<Text text="{kodgrgr}"/>
 									<Text text="{kodgr_text}"/>
 									<Text text="{stbeg}"/>

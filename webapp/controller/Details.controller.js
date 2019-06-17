@@ -18,13 +18,6 @@ sap.ui.define([
 			var myModel = this.getOwnerComponent().getModel();
 			myModel.setSizeLimit(999);
 			this.initFragment();
-			//this.getView().byId("recordCount").setText("1000000112");
-			/*var oBinding = this.byId("it_item").getBinding("rows");
-				oBinding.attachChange(function(sReason) {
-					this.getView().byId("recordCount").setText(oBinding.getLength());
-				});*/
-			var count = this.getView().byId("it_item").getItems().length;
-			this.getView().byId("recordCount").setText(count);
 		},
 		_onRouteFound: function(oEvt) {
 			var oArgument = oEvt.getParameter("arguments");
@@ -106,8 +99,8 @@ sap.ui.define([
 		initFragment: function(oEvent) {
 			this._oDialog = sap.ui.xmlfragment("APP12FirstLook.view.Dialog", this);
 			this.getView().addDependent(this._oDialog);
-			var begSt = this._oDialog.getFilterItems()[2].getCustomControl();
-			var endSt = this._oDialog.getFilterItems()[3].getCustomControl();
+			var begSt = this._oDialog.getFilterItems()[2].getCustomControl().getControlsByFieldGroupId("input")[0];
+			var endSt = this._oDialog.getFilterItems()[3].getCustomControl().getControlsByFieldGroupId("input")[0];
 			var oModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/SAP/Z00_APP12_SRV", false);
 			var sRead = "/stbegSet";
 			// инпуты станции начала и конца
@@ -136,7 +129,7 @@ sap.ui.define([
 				});
 			});
 			// инпут кода груза
-			var codeCargo = this._oDialog.getFilterItems()[1].getCustomControl();
+			var codeCargo = this._oDialog.getFilterItems()[1].getCustomControl().getControlsByFieldGroupId("input")[0];
 			sRead = "/codeCargoSet";
 			oModel.read(sRead, null, null, true, function(oData, oResponse) {
 				var res = oData.results;
@@ -160,6 +153,33 @@ sap.ui.define([
 				this._oDialog.open();
 			}
 		},
+		validate: function(oEvent) {
+			// валидация zzr
+			var inputZZr = this._oDialog.getFilterItems()[5].getCustomControl().getControlsByFieldGroupId("input")[0];
+			if (inputZZr.getValue().length > 0) {
+				// если целове число
+				if (/^\+?(0|[1-9]\d*)$/.test(inputZZr.getValue())) {
+					inputZZr.setValueState(sap.ui.core.ValueState.Success);
+				} else {
+					inputZZr.setValueState(sap.ui.core.ValueState.Error);
+				}
+			} else {
+				inputZZr.setValueState(sap.ui.core.ValueState.None);
+			}
+            // валидация miesumF
+			var inputMiesum = this._oDialog.getFilterItems()[4].getCustomControl().getControlsByFieldGroupId("input")[0];
+			if (inputMiesum.getValue().length > 0) {
+				// если целове число
+				if (/^\+?(0|[1-9]\d*)$/.test(inputMiesum.getValue())) {
+					inputMiesum.setValueState(sap.ui.core.ValueState.Success);
+				} else {
+					inputMiesum.setValueState(sap.ui.core.ValueState.Error);
+				}
+			} else {
+				inputMiesum.setValueState(sap.ui.core.ValueState.None);
+			}
+
+		},
 		onConfirm: function(oEvent) {
 			var oView = this.getView();
 			var oTable = oView.byId("it_item");
@@ -169,22 +189,53 @@ sap.ui.define([
 			//ФИЛЬТРЫ
 			var oCustomFilter = this._oDialog.getFilterItems();
 			oCustomFilter.forEach(function(item) {
-				var filterValue = item.getCustomControl().getValue();
-				if (filterValue) {
+
+				//var filterValue = item.getCustomControl().mAggregations.content[0].getValue(); getControlsByFieldGroupId
+				var inputFilterValue = item.getCustomControl().getControlsByFieldGroupId("input")[0].getValue();
+
+				var selectedRadioIndex = item.getCustomControl().getControlsByFieldGroupId("radio")[0].getSelectedIndex();
+				var filterParam;
+				switch (selectedRadioIndex) {
+					case 0:
+						filterParam = sap.ui.model.FilterOperator.EQ;
+						break;
+					case 1:
+						filterParam = sap.ui.model.FilterOperator.LT;
+						break;
+					case 2:
+						filterParam = sap.ui.model.FilterOperator.GT;
+						break;
+					case 3:
+						filterParam = sap.ui.model.FilterOperator.LT;
+						break;
+					case 4:
+						filterParam = sap.ui.model.FilterOperator.GT;
+						break;
+				}
+				if (inputFilterValue) {
 					var filtName = item.sId;
-					var filterItem = new sap.ui.model.Filter(filtName, sap.ui.model.FilterOperator.EQ, filterValue.toString());
+					var filterItem = new sap.ui.model.Filter(filtName, filterParam, inputFilterValue.toString());
 					filterList.push(filterItem);
 				}
 			});
-			if (filterList.length > 0) {
-				oBinding.filter(filterList, sap.ui.model.FilterType.Application);
-			}
+			//	if (filterList.length > 0) {
+			oBinding.filter(filterList, sap.ui.model.FilterType.Application);
+			//	}
 			// СОРТИРОВКА 
 			var aSorters = [];
 			var sPath = mParams.sortItem.getKey();
 			var bDescending = mParams.sortDescending;
 			aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
 			oBinding.sort(aSorters);
+		},
+		onCancel: function(oEvent) {
+
+		},
+		onResetFilters: function(oEvent) {
+			var oCustomFilter = this._oDialog.getFilterItems();
+			oCustomFilter.forEach(function(item) {
+				item.getCustomControl().getControlsByFieldGroupId("input")[0].setValue("");
+			});
 		},
 		onExcel: function(oEvent) {
 			var oTableData = this.getView().byId("it_item").getBinding("items");
@@ -200,7 +251,6 @@ sap.ui.define([
 		/**
 		 *@memberOf APP12FirstLook.controller.Details
 		 */
-		//onAfterRendering: function() {
 		onUpdateFinish: function(oEvent) {
 			var count = this.getView().byId("it_item").getItems().length;
 			this.getView().byId("recordCount").setText(count);
@@ -209,19 +259,19 @@ sap.ui.define([
 		begSuggest: function(oEvent) {
 			var item = oEvent.getParameter("selectedItem");
 			var key = item.getKey();
-			var input = this._oDialog.getFilterItems()[2].getCustomControl();
+			var input = this._oDialog.getFilterItems()[2].getCustomControl().getControlsByFieldGroupId("input")[0];
 			input.setValue(key);
 		},
 		endSuggest: function(oEvent) {
 			var item = oEvent.getParameter("selectedItem");
 			var key = item.getKey();
-			var input = this._oDialog.getFilterItems()[3].getCustomControl();
+			var input = this._oDialog.getFilterItems()[3].getCustomControl().getControlsByFieldGroupId("input")[0];
 			input.setValue(key);
 		},
 		cargoSuggest: function(oEvent) {
 			var item = oEvent.getParameter("selectedItem");
 			var key = item.getKey();
-			var input = this._oDialog.getFilterItems()[1].getCustomControl();
+			var input = this._oDialog.getFilterItems()[1].getCustomControl().getControlsByFieldGroupId("input")[0];
 			input.setValue(key);
 		}
 	});

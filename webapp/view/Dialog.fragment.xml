@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-	<ViewSettingsDialog confirm="onConfirm">
+	<ViewSettingsDialog title="Фильтры/сортировка" confirm="onConfirm" cancel = "onCancel" resetFilters="onResetFilters">
 		<sortItems>
-			<ViewSettingsItem selected="true" key="Calmonth" text="Период"/>
+			<ViewSettingsItem selected="true" key="calmonth" text="Период"/>
 			<ViewSettingsItem key="kodgrgr" text="Код груза"/>
 			<ViewSettingsItem key="stbeg" text="Станция начала"/>
 			<ViewSettingsItem key="stend" text="Станция конца"/>
@@ -9,24 +9,107 @@
 			<ViewSettingsItem key="zZr" text="zZr"/>
 		</sortItems>
 		<filterItems>
-			<ViewSettingsCustomItem id="Calmonth" text="Период" key="Calmonth">
+			<ViewSettingsCustomItem id="calmonth" text="Период" key="calmonth">
 				<customControl>
-					<Input width="100%" id="monFilter" placeholder="Код груза"/>
+					<CustomListItem>
+						<Input width="100%" id="monFilter" placeholder="Период" fieldGroupIds="input"/>
+						<VBox class="sapUiSmallMargin">
+							<RadioButtonGroup fieldGroupIds="radio" id="MyGroup">
+								<RadioButton groupName="GroupA" text="=" selected="true"/>
+								<RadioButton groupName="GroupA" text="Меньше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Меньше равно" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше равно" editable="false"/>
+							</RadioButtonGroup>
+						</VBox>
+					</CustomListItem>
 				</customControl>
 			</ViewSettingsCustomItem>
 			<ViewSettingsCustomItem id="kodgrgr" text="Код груза" key="kodgrgr">
 				<customControl>
-					<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" showSuggestion="true"  suggestionItemSelected="cargoSuggest"  />
+					<CustomListItem>
+						<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" showSuggestion="true" suggestionItemSelected="cargoSuggest"
+							fieldGroupIds="input"/>
+						<VBox class="sapUiSmallMargin">
+							<RadioButtonGroup fieldGroupIds="radio">
+								<RadioButton groupName="GroupA" text="=" selected="true"/>
+								<RadioButton groupName="GroupA" text="Меньше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Меньше равно" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше равно" editable="false"/>
+							</RadioButtonGroup>
+						</VBox>
+					</CustomListItem>
 				</customControl>
 			</ViewSettingsCustomItem>
 			<ViewSettingsCustomItem id="stbeg" text="Станция начала" key="stbeg">
 				<customControl>
-					<Input width="100%" id="stBegFilter" placeholder="Станция начала" showSuggestion="true" suggestionItemSelected="begSuggest"/>
+					<CustomListItem>
+						<Input width="100%" id="stBegFilter" placeholder="Станция начала" showSuggestion="true" suggestionItemSelected="begSuggest"
+							fieldGroupIds="input"/>
+						<VBox class="sapUiSmallMargin">
+							<RadioButtonGroup fieldGroupIds="radio">
+								<RadioButton groupName="GroupA" text="=" selected="true"/>
+								<RadioButton groupName="GroupA" text="Меньше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Меньше равно" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше равно" editable="false"/>
+							</RadioButtonGroup>
+						</VBox>
+					</CustomListItem>
 				</customControl>
 			</ViewSettingsCustomItem>
 			<ViewSettingsCustomItem id="stend" text="Станция конца" key="stend">
 				<customControl>
-					<Input width="100%" id="stEndFilter" placeholder="Станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"/>
+					<CustomListItem>
+						<Input width="100%" id="stEndFilter" placeholder="Станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"
+							fieldGroupIds="input"/>
+						<VBox class="sapUiSmallMargin">
+							<RadioButtonGroup fieldGroupIds="radio">
+								<RadioButton groupName="GroupA" text="=" selected="true"/>
+								<RadioButton groupName="GroupA" text="Меньше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше" editable="false"/>
+								<RadioButton groupName="GroupA" text="Меньше равно" editable="false"/>
+								<RadioButton groupName="GroupA" text="Больше равно" editable="false"/>
+							</RadioButtonGroup>
+						</VBox>
+					</CustomListItem>
+				</customControl>
+			</ViewSettingsCustomItem>
+			<ViewSettingsCustomItem id="miesumF" text="Сумма" key="miesumF">
+				<customControl>
+					<VBox>
+						<CustomListItem>
+							<Input width="100%" id="miesumFilter" placeholder="Сумма" showSuggestion="true" fieldGroupIds="input" liveChange="validate"/>
+							<VBox class="sapUiSmallMargin">
+								<RadioButtonGroup fieldGroupIds="radio">
+									<RadioButton groupName="GroupA" text="=" selected="true"/>
+									<RadioButton groupName="GroupA" text="Меньше"/>
+									<RadioButton groupName="GroupA" text="Больше"/>
+									<RadioButton groupName="GroupA" text="Меньше равно"/>
+									<RadioButton groupName="GroupA" text="Больше равно"/>
+								</RadioButtonGroup>
+							</VBox>
+						</CustomListItem>
+					</VBox>
+				</customControl>
+			</ViewSettingsCustomItem>
+			<ViewSettingsCustomItem id="zZr" text="zZr" key="zZr">
+				<customControl>
+					<VBox>
+						<CustomListItem>
+							<Input width="100%" id="zZrFilter" placeholder="zZr" showSuggestion="true" fieldGroupIds="input" liveChange="validate"/>
+							<VBox class="sapUiSmallMargin">
+								<RadioButtonGroup fieldGroupIds="radio">
+									<RadioButton groupName="GroupA" text="=" selected="true"/>
+									<RadioButton groupName="GroupA" text="Меньше"/>
+									<RadioButton groupName="GroupA" text="Больше"/>
+									<RadioButton groupName="GroupA" text="Меньше равно"/>
+									<RadioButton groupName="GroupA" text="Больше равно"/>
+								</RadioButtonGroup>
+							</VBox>
+						</CustomListItem>
+					</VBox>
 				</customControl>
 			</ViewSettingsCustomItem>
 		</filterItems>
