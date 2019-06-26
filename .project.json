@@ -22,7 +22,7 @@
     {
       "templateId": "ui5template.basicSAPUI5ApplicationComponent",
       "templateVersion": "1.4.0",
-      "dateTimeStamp": "Wed, 03 Apr 2019 09:04:51 GMT"
+      "dateTimeStamp": "Tue, 25 Jun 2019 08:57:53 GMT"
     }
   ],
   "translation": {
@@ -50,7 +50,7 @@
     "targetFolder": "dist",
     "excludedFolders": [],
     "excludedFiles": [],
-    "lastBuildDateTime": "Thu, 13 Jun 2019 09:44:15 GMT"
+    "lastBuildDateTime": "Fri, 21 Jun 2019 07:16:16 GMT"
   },
   "mockpreview": {
     "mockUri": "/sap/opu/odata/sap/Z00_APP12_SRV/",

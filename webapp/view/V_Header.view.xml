@@ -1,11 +1,34 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="APP12FirstLook.controller.V_Header">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="APP12FirstLook.controller.V_Header">
 	<App>
 		<pages>
 			<Page title="Приложение 12">
 				<content>
-					<Input width="100%" id="inputSel" placeholder="станция начала" showSuggestion="true" name="stBeg" suggest="suggestSet" selectedKey="{/#ZRGP_120N/stbeg/@sap:label}" valueLiveUpdate="true" suggestionRowValidator="{/#ZRGP_120N/stbeg/@sap:label}" suggestionItemSelected="begSuggest"/>
-					<Input width="100%" id="inputEndStation" placeholder="станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"/>
-					<Input width="100%" id="codeCargo" placeholder="Код груза" showSuggestion="true" suggestionItemSelected="cargoSauggest"/>
+					<MaskInput width="100%" id="monthId" mask="YYYY.MM" placeholderSymbol="-" value="201501" placeholder="Период YYYYMM">
+						<rules>
+							<MaskInputRule maskFormatSymbol="Y" regex="[0-9]"/>
+							<MaskInputRule maskFormatSymbol="M" regex="[0-9]"/>
+						</rules>
+					</MaskInput>
+					<!--<Input width="100%" id="monthId" placeholder="Период YYYYMM" showSuggestion="true"/>-->
+					<Input width="100%" id="inputSel" placeholder="станция начала" showSuggestion="true" name="stBeg" suggestionItemSelected="begSuggest"
+						suggest="stationSuggest" suggestionItems="{/stbegSet}">
+						<suggestionItems>
+							<core:Item text="{st_spr} - {Txtlg}" key='{st_spr}'/>
+						</suggestionItems>
+					</Input>
+					<Input width="100%" id="inputEndStation" placeholder="станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"
+						suggest="stationSuggest" suggestionItems="{/stbegSet}">
+						<suggestionItems>
+							<core:Item text="{st_spr} - {Txtlg}" key='{st_spr}'/>
+						</suggestionItems>
+					</Input>
+					<Input width="100%" id="codeCargo" placeholder="Код груза" showSuggestion="true" suggestionItemSelected="cargoSauggest"
+						suggest="cargoSuggest" suggestionItems="{/codeCargoSet}">
+						<suggestionItems>
+							<core:Item text="{kodgrgr} - {cargo_text}" key='{kodgrgr}'/>
+						</suggestionItems>
+					</Input>
 					<Button text="Запуск" width="100px" id="__button0" press="goToDetails"/>
 				</content>
 			</Page>

@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds" xmlns:vizData="sap.viz.ui5.data" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data">
+	<Dialog title="Hello">
+		<content>
+				<viz:VizFrame id="tt" vizType="info/pie"
+						vizProperties="{plotArea:{dataLabel:{visible: true, type: 'value', distance: 0.3,  line: {visible: true}, hideWhenOverlap: true}}, 
+						                title:{ text:'Круговой график. Груз, суммы. Фильтр станция начала: 10002, период: 201501'}}"  width="1000px" height="1000px">
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/pieChartSet?$filter=calmonth eq '201501' and stbeg eq '010002'}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Груз" value="{kodgrgr}" displayValue="{kodgr_text}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition value="{miesumF}" name="Сумма"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem uid="size" type="Measure" values="Сумма"/>
+							<viz.feeds:FeedItem uid="color" type="Dimension" values="Груз"/>
+						</viz:feeds>
+					</viz:VizFrame>
+					<viz:Popover id="vizPopover"/>
+		</content>
+		<endButton>
+			<Button text="Close It" press="closeDialog"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

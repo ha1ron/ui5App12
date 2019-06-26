@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-	<ViewSettingsDialog title="Фильтры/сортировка" confirm="onConfirm" cancel = "onCancel" resetFilters="onResetFilters">
+	<ViewSettingsDialog title="Фильтры/сортировка" confirm="onConfirm" cancel="onCancel" resetFilters="onResetFilters">
 		<sortItems>
 			<ViewSettingsItem selected="true" key="calmonth" text="Период"/>
 			<ViewSettingsItem key="kodgrgr" text="Код груза"/>
@@ -46,7 +46,11 @@
 				<customControl>
 					<CustomListItem>
 						<Input width="100%" id="stBegFilter" placeholder="Станция начала" showSuggestion="true" suggestionItemSelected="begSuggest"
-							fieldGroupIds="input"/>
+							fieldGroupIds="input" suggestionItems="{/stbegSet}" suggest="stationSuggest">
+							<suggestionItems>
+								<core:Item text="{st_spr} - {Txtlg}" key='{st_spr}'/>
+							</suggestionItems>
+						</Input>
 						<VBox class="sapUiSmallMargin">
 							<RadioButtonGroup fieldGroupIds="radio">
 								<RadioButton groupName="GroupA" text="=" selected="true"/>
@@ -63,7 +67,11 @@
 				<customControl>
 					<CustomListItem>
 						<Input width="100%" id="stEndFilter" placeholder="Станция конца" showSuggestion="true" suggestionItemSelected="endSuggest"
-							fieldGroupIds="input"/>
+							fieldGroupIds="input" suggestionItems="{/stbegSet}" suggest="stationSuggest">
+							<suggestionItems>
+								<core:Item text="{st_spr} - {Txtlg}" key='{st_spr}'/>
+							</suggestionItems>
+						</Input>
 						<VBox class="sapUiSmallMargin">
 							<RadioButtonGroup fieldGroupIds="radio">
 								<RadioButton groupName="GroupA" text="=" selected="true"/>

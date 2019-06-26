@@ -39,10 +39,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_belize"
-		]
+		"supportedThemes": ["sap_hcb", "sap_belize"]
 	},
 	"sap.ui5": {
 		"rootView": {
@@ -84,15 +81,12 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				},
-				{
-					"uri": "css/smalStyle.css",
-					"id": ""
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}, {
+				"uri": "css/smalStyle.css",
+				"id": ""
+			}]
 		},
 		"routing": {
 			"config": {
@@ -116,28 +110,47 @@
 					"clearAggregation": true,
 					"viewName": "Details",
 					"viewLevel": 2
+				},
+				"TargetPieChart": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewLevel": 3,
+					"viewName": "PieChart"
+				},
+				"TargetBarChart": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewLevel": 3,
+					"viewName": "BarChart"
 				}
 			},
-			"routes": [
-				{
-					"name": "TargetHeader",
-					"pattern": "",
-					"titleTarget": "",
-					"greedy": false,
-					"target": [
-						"TargetHeader"
-					]
-				},
-				{
-					"name": "TargetDetails",
-					"pattern": "ZRGP_120NSet/{inputValue}/{endStation}/{code}",
-					"titleTarget": "",
-					"greedy": false,
-					"target": [
-						"TargetDetails"
-					]
-				}
-			]
+			"routes": [{
+				"name": "TargetHeader",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["TargetHeader"]
+			}, {
+				"name": "TargetDetails",
+				"pattern": "ZRGP_120NSet/{inputValue}/{endStation}/{code}/{month}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["TargetDetails"]
+			}, {
+				"name": "TargetPieChart",
+				"pattern": "pieChart/{month}/{begst}/{endst}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["TargetPieChart"]
+			}, {
+				"name": "TargetBarChart",
+				"pattern": "barChart",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["TargetBarChart"]
+			}]
 		}
 	},
 	"sap.platform.abap": {

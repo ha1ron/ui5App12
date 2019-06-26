@@ -4,6 +4,8 @@ sap.ui.define([
 	"sap/ui/model/Sorter"
 ], function(Controller, Fragment, Sorter) {
 	"use strict";
+	var fragments = new Map();
+	var selectParams = new Map();
 	return Controller.extend("APP12FirstLook.controller.Details", {
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -18,72 +20,52 @@ sap.ui.define([
 			var myModel = this.getOwnerComponent().getModel();
 			myModel.setSizeLimit(999);
 			this.initFragment();
+
 		},
 		_onRouteFound: function(oEvt) {
 			var oArgument = oEvt.getParameter("arguments");
-			var begStation = oArgument.inputValue.trim();
-			var codeCargo = oArgument.code.trim();
-			var endStation = oArgument.endStation.trim();
+			var begStation = oArgument.inputValue;
+			var codeCargo = oArgument.code;
+			var endStation = oArgument.endStation;
+			var month = oArgument.month;
+
+			selectParams.set("month", month);
+			selectParams.set("begst", begStation);
+			selectParams.set("endst", endStation);
+			selectParams.set("cargo", codeCargo);
+
 			var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/Z00_APP12_SRV/");
 			this.getView().setModel(oModel);
-			var filters = this.makeFilter(begStation, endStation, codeCargo);
+
+			var filters = this.makeFilter(begStation.trim(), endStation.trim(), codeCargo.trim(), month.trim());
 			var binding = this.byId("it_item").getBinding("items");
 			binding.filter(filters, sap.ui.model.FilterType.Control);
 		},
-		makeFilter: function(begSt, endSt, cargo) {
+		makeFilter: function(begSt, endSt, cargo, month) {
 			var filters;
+			var filtersParams = [];
 			var filterBegSt = new sap.ui.model.Filter("stbeg", sap.ui.model.FilterOperator.EQ, begSt);
 			var filterEndSt = new sap.ui.model.Filter("stend", sap.ui.model.FilterOperator.EQ, endSt);
 			var filterCargo = new sap.ui.model.Filter("kodgrgr", sap.ui.model.FilterOperator.EQ, cargo);
-			if (begSt && endSt && cargo) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [
-						filterBegSt,
-						filterEndSt,
-						filterCargo
-					]
-				});
-			} else if (begSt && endSt) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [
-						filterBegSt,
-						filterEndSt
-					]
-				});
-			} else if (begSt && cargo) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [
-						filterBegSt,
-						filterCargo
-					]
-				});
-			} else if (endSt && cargo) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [
-						filterEndSt,
-						filterCargo
-					]
-				});
-			} else if (begSt) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [filterBegSt]
-				});
-			} else if (endSt) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [filterEndSt]
-				});
-			} else if (cargo) {
-				filters = new sap.ui.model.Filter({
-					and: true,
-					filters: [filterCargo]
-				});
+			var filterMonth = new sap.ui.model.Filter("calmonth", sap.ui.model.FilterOperator.EQ, month);
+
+			if (begSt) {
+				filtersParams.push(filterBegSt);
 			}
+			if (endSt) {
+				filtersParams.push(filterEndSt);
+			}
+			if (cargo) {
+				filtersParams.push(filterCargo);
+			}
+			if (month) {
+				filtersParams.push(filterMonth);
+			}
+			filters = new sap.ui.model.Filter({
+				and: true,
+				filters: filtersParams
+			});
+
 			return filters;
 		},
 		/**
@@ -101,49 +83,29 @@ sap.ui.define([
 			this.getView().addDependent(this._oDialog);
 			var begSt = this._oDialog.getFilterItems()[2].getCustomControl().getControlsByFieldGroupId("input")[0];
 			var endSt = this._oDialog.getFilterItems()[3].getCustomControl().getControlsByFieldGroupId("input")[0];
-			var oModel = new sap.ui.model.odata.ODataModel("/sap/opu/odata/SAP/Z00_APP12_SRV", false);
-			var sRead = "/stbegSet";
-			// инпуты станции начала и конца
-			oModel.read(sRead, null, null, true, function(oData, oResponse) {
-				var res = oData.results;
-				res.forEach(function(item) {
-					begSt.addSuggestionItem(new sap.ui.core.Item({
-						key: item.st_spr,
-						text: item.st_spr + " - " + item.Txtlg
-					}));
-					endSt.addSuggestionItem(new sap.ui.core.Item({
-						key: item.st_spr,
-						text: item.st_spr + " - " + item.Txtlg
-					}));
-				});
-				// полнотекстовый поиск
-				begSt.setFilterFunction(function(sTerm, oItem) {
-					if (sTerm.length > 2) {
-						return oItem.getText().match(new RegExp(sTerm, "i"));
-					}
-				});
-				endSt.setFilterFunction(function(sTerm, oItem) {
-					if (sTerm.length > 2) {
-						return oItem.getText().match(new RegExp(sTerm, "i"));
-					}
-				});
-			});
-			// инпут кода груза
-			var codeCargo = this._oDialog.getFilterItems()[1].getCustomControl().getControlsByFieldGroupId("input")[0];
-			sRead = "/codeCargoSet";
-			oModel.read(sRead, null, null, true, function(oData, oResponse) {
-				var res = oData.results;
-				res.forEach(function(item) {
-					codeCargo.addSuggestionItem(new sap.ui.core.Item({
-						key: item.kodgrgr,
-						text: item.kodgrgr + " - " + item.cargo_text
-					}));
-				});
-				// полнотекстовый поиск для фильтров кодов грузов
-				codeCargo.setFilterFunction(function(sTerm, oItem) {
+			begSt.setFilterFunction(function(sTerm, oItem) {
+				if (sTerm.length > 1) {
 					return oItem.getText().match(new RegExp(sTerm, "i"));
-				});
+				}
 			});
+			endSt.setFilterFunction(function(sTerm, oItem) {
+				if (sTerm.length > 1) {
+					return oItem.getText().match(new RegExp(sTerm, "i"));
+				}
+			});
+			var codeCargo = this._oDialog.getFilterItems()[1].getCustomControl().getControlsByFieldGroupId("input")[0];
+			codeCargo.setFilterFunction(function(sTerm, oItem) {
+				return oItem.getText().match(new RegExp(sTerm, "i"));
+			});
+		},
+		stationSuggest: function(oEvent) {
+			var sTerm = oEvent.getParameter("suggestValue");
+			var aFilters = [];
+			if (sTerm) {
+				aFilters.push(new sap.ui.model.Filter("st_spr", sap.ui.model.FilterOperator.Contains, sTerm));
+				aFilters.push(new sap.ui.model.Filter("Txtlg", sap.ui.model.FilterOperator.Contains, sTerm));
+			}
+			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
 		},
 		onTableSettings: function(oEvent) {
 			if (!this._oDialog) {
@@ -166,7 +128,7 @@ sap.ui.define([
 			} else {
 				inputZZr.setValueState(sap.ui.core.ValueState.None);
 			}
-            // валидация miesumF
+			// валидация miesumF
 			var inputMiesum = this._oDialog.getFilterItems()[4].getCustomControl().getControlsByFieldGroupId("input")[0];
 			if (inputMiesum.getValue().length > 0) {
 				// если целове число
@@ -273,6 +235,46 @@ sap.ui.define([
 			var key = item.getKey();
 			var input = this._oDialog.getFilterItems()[1].getCustomControl().getControlsByFieldGroupId("input")[0];
 			input.setValue(key);
+		},
+
+		onPress: function(oEvent) {
+			/*	if (!this._oDialog) {
+					this._oDialog = sap.ui.xmlfragment("APP12FirstLook.view.Diagram", this);
+					this.getView().addDependent(this._oDialog);
+					this._oDialog.open();
+				} else {
+					this._oDialog.open();
+				}*/
+			if (!fragments.get("pieDiagram")) {
+				var dialog = sap.ui.xmlfragment("APP12FirstLook.view.Diagram", this);
+				this.getView().addDependent(dialog);
+				fragments.set("pieDiagram", dialog);
+
+				/*var fragmentId = this.getView().createId("APP12FirstLook.view.Diagram");
+				var frame = dialog.getView().byId(fragmentId, "tt");
+				debugger;*/
+
+				dialog.open();
+			} else {
+				fragments.get("pieDiagram").open();
+			}
+
+		},
+		closeDialog: function(oEvent) {
+			fragments.get("pieDiagram").close();
+		},
+
+		onPieChart: function(oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("TargetPieChart", {
+				month: selectParams.get("month"),
+				begst: selectParams.get("begst"),
+				endst: selectParams.get("endst")
+			});
+		},
+		onBarChart: function(oEvent){
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("TargetBarChart", {});
 		}
 	});
 });

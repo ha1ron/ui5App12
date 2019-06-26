@@ -12,9 +12,11 @@
 									<Text text="Число записей:"/>
 									<Text text="" id="recordCount"/>
 									<ToolbarSpacer/>
+									<Button press="onBarChart" tooltip="График" text="График" icon="sap-icon://bar-chart"/>
+									<Button press="onPieChart" tooltip="EXCEL" text="Диаграмма" icon="sap-icon://pie-chart"/>
+									<Button press="onPress" tooltip="EXCEL" text="Всплывающее окно" icon="sap-icon://pie-chart"/>
 									<Button press="onExcel" icon="sap-icon://excel-attachment" tooltip="EXCEL"/>
 									<Button press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>
-									
 								</content>
 							</Toolbar>
 						</headerToolbar>
