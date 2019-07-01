@@ -4,7 +4,7 @@
 		<pages>
 			<Page title="Приложение 12">
 				<content>
-					<MaskInput width="100%" id="monthId" mask="YYYY.MM" placeholderSymbol="-" value="201501" placeholder="Период YYYYMM">
+					<MaskInput width="100%" id="monthId" mask="YYYY.MM" placeholderSymbol="-" placeholder="Период YYYYMM">
 						<rules>
 							<MaskInputRule maskFormatSymbol="Y" regex="[0-9]"/>
 							<MaskInputRule maskFormatSymbol="M" regex="[0-9]"/>

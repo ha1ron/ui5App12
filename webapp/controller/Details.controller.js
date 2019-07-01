@@ -1,8 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/Fragment",
-	"sap/ui/model/Sorter"
-], function(Controller, Fragment, Sorter) {
+	"sap/ui/model/Sorter",
+	"sap/ui/core/util/Export",
+	"sap/ui/core/util/ExportTypeCSV"
+], function(Controller, Fragment, Sorter, Export, ExportTypeCSV) {
 	"use strict";
 	var fragments = new Map();
 	var selectParams = new Map();
@@ -18,7 +20,7 @@ sap.ui.define([
 			// Validate/Match the Router Details sent from source using oRouter.navTo("Router_Detail", {SelectedItem: selectPO});
 			oRouter.getRoute("TargetDetails").attachMatched(this._onRouteFound, this);
 			var myModel = this.getOwnerComponent().getModel();
-			myModel.setSizeLimit(999);
+			myModel.setSizeLimit(100);
 			this.initFragment();
 
 		},
@@ -104,6 +106,15 @@ sap.ui.define([
 			if (sTerm) {
 				aFilters.push(new sap.ui.model.Filter("st_spr", sap.ui.model.FilterOperator.Contains, sTerm));
 				aFilters.push(new sap.ui.model.Filter("Txtlg", sap.ui.model.FilterOperator.Contains, sTerm));
+			}
+			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
+		},
+		cargoSuggestInit: function(oEvent) {
+			var sTerm = oEvent.getParameter("suggestValue");
+			var aFilters = [];
+			if (sTerm) {
+				aFilters.push(new sap.ui.model.Filter("kodgrgr", sap.ui.model.FilterOperator.Contains, sTerm));
+				aFilters.push(new sap.ui.model.Filter("cargo_text", sap.ui.model.FilterOperator.Contains, sTerm));
 			}
 			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
 		},
@@ -210,11 +221,109 @@ sap.ui.define([
 				sap.m.URLHelper.redirect(encodeUrl, false);
 			});
 		},
+		onExcelV2: sap.m.Table.prototype.exportData || function(oEvent) {
+
+			var oTableBinding = this.getView().byId("it_item").getBinding("items");
+
+			var path = "/ZRGP_120NSet"; // + "?" + filtersData;
+			var oExport = new Export({
+
+				// Type that will be used to generate the content. Own ExportType's can be created to support other formats
+				exportType: new ExportTypeCSV({
+					//fileExtension: "xlsx",
+					separatorChar: ";"
+				}),
+
+				// Pass in the model created above
+				models: this.getView().getModel(),
+
+				// binding information for the rows aggregation
+				rows: {
+					path: path, //"/ZRGP_120NSet"
+					filters: oTableBinding.aFilters
+				},
+
+				// column definitions with column name and binding info for the content
+
+				columns: [{
+					name: "Период",
+					template: {
+						content: {
+							path: "calmonth"
+						}
+					}
+				}, {
+					name: "Когд груза",
+					template: {
+						content: {
+							path: "kodgrgr"
+						}
+					}
+				}, {
+					name: "Груз",
+					template: {
+						content: {
+							path: "kodgr_text"
+						}
+					}
+				}, {
+					name: "Станция начала",
+					template: {
+						content: {
+							path: "stbeg"
+						}
+					}
+				}, {
+					name: "Название станция начала",
+					template: {
+						content: {
+							path: "stbeg_text"
+						}
+					}
+				}, {
+					name: "Станция конца",
+					template: {
+						content: {
+							path: "stend"
+						}
+					}
+				}, {
+					name: "Название станция конца",
+					template: {
+						content: {
+							path: "stend_text"
+						}
+					}
+				}, {
+					name: "zZr",
+					template: {
+						content: {
+							path: "zZr"
+						}
+					}
+				}, {
+					name: "Сумма",
+					template: {
+						content: {
+							path: "miesumF"
+						}
+					}
+				}]
+			});
+			var fileName = "export — " + new Date().toString();
+			// download exported file
+			oExport.saveFile(fileName).always(function() {
+				this.destroy();
+			});
+
+		},
 		/**
 		 *@memberOf APP12FirstLook.controller.Details
 		 */
 		onUpdateFinish: function(oEvent) {
-			var count = this.getView().byId("it_item").getItems().length;
+			//var count = this.getView().byId("it_item").getItems().length;
+
+			var count = oEvent.getParameter("total");
 			this.getView().byId("recordCount").setText(count);
 		},
 
@@ -272,7 +381,7 @@ sap.ui.define([
 				endst: selectParams.get("endst")
 			});
 		},
-		onBarChart: function(oEvent){
+		onBarChart: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("TargetBarChart", {});
 		}

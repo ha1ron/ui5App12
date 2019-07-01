@@ -3,8 +3,13 @@
 	<App>
 		<pages>
 			<Page title="График" showNavButton="true" navButtonPress="onBackButton">
+		<!--		<Toolbar>
+					<ToolbarSpacer/>
+					<Button icon="sap-icon://pdf-attachment" press="onPressPDF" text="Скачать PDF"/>
+					<ToolbarSpacer/>
+				</Toolbar> -->
 				<content>
-					<viz:VizFrame id="pieChartId" vizType="pie" width="100%" height="100%"></viz:VizFrame>
+					<viz:VizFrame id="pieChartId" vizType="pie" width="100%" height="100%"/>
 				</content>
 			</Page>
 		</pages>

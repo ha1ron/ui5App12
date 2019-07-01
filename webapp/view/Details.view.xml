@@ -3,7 +3,7 @@
 		<pages>
 			<Page title="Хранилище ZRGP_120" showNavButton="true" navButtonPress="toSelection">
 				<content>
-					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" growingScrollToLoad="true" headerText="Заголовок" footerText="ОЦРВ" growing="true" growingThreshold="1000" growingTriggerText="Дальше" updateFinished="onUpdateFinish">
+					<Table id="it_item" items="{path:'/ZRGP_120NSet'}" headerText="Заголовок" footerText="ОЦРВ" growingThreshold="100" growingTriggerText="Дальше" updateFinished="onUpdateFinish" growing="true">
 						<headerToolbar>
 							<Toolbar>
 								<content>
@@ -16,27 +16,28 @@
 									<Button press="onPieChart" tooltip="EXCEL" text="Диаграмма" icon="sap-icon://pie-chart"/>
 									<Button press="onPress" tooltip="EXCEL" text="Всплывающее окно" icon="sap-icon://pie-chart"/>
 									<Button press="onExcel" icon="sap-icon://excel-attachment" tooltip="EXCEL"/>
+									<Button press="onExcelV2" icon="sap-icon://excel-attachment" tooltip="EXCEL" text="V2"/>
 									<Button press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>
 								</content>
 							</Toolbar>
 						</headerToolbar>
 						<columns>
-							<Column>
+							<Column width="60px">
 								<Text text="Период"/>
 							</Column>
-							<Column>
+							<Column width="80px">
 								<Text text="Код груза"/>
 							</Column>
 							<Column>
 								<Text text="Текст кода груза"/>
 							</Column>
-							<Column>
+							<Column width="60px">
 								<Text text="Станция начала"/>
 							</Column>
 							<Column>
 								<Text text="Название станции начала"/>
 							</Column>
-							<Column>
+							<Column width="60px">
 								<Text text="Станция конца"/>
 							</Column>
 							<Column>

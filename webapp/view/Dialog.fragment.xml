@@ -29,7 +29,11 @@
 				<customControl>
 					<CustomListItem>
 						<Input width="100%" id="kodgrgrFilter" placeholder="Код груза" showSuggestion="true" suggestionItemSelected="cargoSuggest"
-							fieldGroupIds="input"/>
+							fieldGroupIds="input" suggestionItems="{/codeCargoSet}" suggest="cargoSuggestInit">
+							<suggestionItems>
+								<core:Item text="{kodgrgr} - {cargo_text}" key='{kodgrgr}'/>
+							</suggestionItems>
+						</Input>
 						<VBox class="sapUiSmallMargin">
 							<RadioButtonGroup fieldGroupIds="radio">
 								<RadioButton groupName="GroupA" text="=" selected="true"/>
